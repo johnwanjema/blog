@@ -1,3 +1,10 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, TextAreaField, SubmitField
+from wtforms import StringField,PasswordField,BooleanField,SubmitField,TextAreaField,SelectField
 from wtforms.validators import Required
+from ..models import Blog
+
+class BlogForm(FlaskForm):
+    blog_title = StringField('Blog title',validators=[Required()])
+    blog = TextAreaField('Blog',validators=[Required()])
+    submit = SubmitField('Submit')
+
