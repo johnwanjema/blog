@@ -1,9 +1,9 @@
-from flask import render_template, request, redirect, url_for, abort
+from flask import render_template, request, redirect, url_for, abort , flash
 from . import main
 from .. import db
-from ..models import Blog, User
+from ..models import Blog, User ,Comment
 from flask_login import login_user, logout_user, login_required, current_user
-from .forms import BlogForm
+from .forms import BlogForm ,CommentForm
 
 
 @main.route('/')
@@ -13,6 +13,7 @@ def index():
     print(blogs)
     if blogs is None:
         return redirect(url_for('main.new_blog'))
+        flash("no blogs")
     return render_template("index.html", blogs = blogs)
 
 
@@ -29,3 +30,15 @@ def new_blog():
         return redirect(url_for('main.index'))
         title="pitches"
     return render_template('new_blog.html', blog_form=form)
+
+@main.route('/new_comment', methods=['GET', 'POST'])
+@login_required
+def new_comment():
+    form = CommentForm()
+    if form.validate_on_submit():
+        comment = Comment(comment=form.comment.data)
+        db.session.add(comment)
+        db.session.commit()
+        return redirect(url_for('main.index'))
+        title="pitches"
+    return render_template('new_comment.html', comment_form=form)
