@@ -8,3 +8,7 @@ class BlogForm(FlaskForm):
     blog = TextAreaField('Blog',validators=[Required()])
     submit = SubmitField('Submit')
 
+class CommentForm(FlaskForm):
+    comment = TextAreaField('comment',validators=[Required()])
+    submit = SubmitField('Submit')
+
