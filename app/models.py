@@ -58,12 +58,12 @@ class Blog(db.Model):
 
     @classmethod
     def get_blog(cls, id):
-        blog = blog.query.filter_by(id=id).first()
+        blog = Blog.query.filter_by(id=id).first()
         return blog
 
     @classmethod
     def get_blogs(cls, id):
-        blogs = blog.query.filter_by(id=id).all()
+        blogs = Blog.query.filter_by(id=id).all()
         return blogs
 
     
@@ -82,5 +82,5 @@ class Comment(db.Model):
 
     @classmethod
     def get_comments(self, id):
-        comments = Comment.query.filter_by(id=id).all()
+        comments = Comment.query.filter_by(blog_id =id).all()
         return comments
