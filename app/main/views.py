@@ -1,5 +1,6 @@
 from flask import render_template, request, redirect, url_for, abort, flash
 from . import main
+from ..email import mail_message
 from .. import db
 from ..models import Blog, User, Comment
 from flask_login import login_user, logout_user, login_required, current_user
@@ -22,8 +23,11 @@ def index():
 def new_blog():
     form = BlogForm()
     if form.validate_on_submit():
-        blog = Blog(blog=form.blog.data, blog_title=form.blog_title.data,
+        blog = Blog(blog=form.blog.data, blog_title=form.blog_title.data, user_id = current_user.id,
                     blog_upvotes=0, blog_downvotes=0)
+        if current_user.subscribe == 1:
+            mail_message("New blog","email/welcome_user",current_user.email,current_user=current_user)
+            print('qwertyuiojpjxszmkl')        
         blog.save_blog
         db.session.add(blog)
         db.session.commit()
@@ -43,5 +47,8 @@ def new_comment(id):
         db.session.add(comment)
         db.session.commit()
         return redirect(url_for('main.index'))
-        title="pitches"
-    return render_template('new_comment.html', comment_form = form,comments = comments)
+        title = "pitches"
+    return render_template('new_comment.html', comment_form=form, comments=comments)
+
+
+

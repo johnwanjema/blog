@@ -18,6 +18,7 @@ class User(UserMixin, db.Model):
     username = db.Column(db.String(255), index=True)
     email = db.Column(db.String(255), unique=True, index=True)
     bio = db.Column(db.String(255))
+    subscribe = db.Column(db.Integer)
     profile_pic_path = db.Column(db.String())
     blog = db.relationship('Blog', backref='user', lazy="dynamic")
     password_hash = db.Column(db.String(255))
@@ -36,6 +37,11 @@ class User(UserMixin, db.Model):
     def save_user(self):
         db.session.add(self)
         db.session.commit()
+    
+    @classmethod
+    def get_user(cls, id):
+        user = User.query.filter_by(id=id).first()
+        return user
 
     def __repr__(self):
         return f'User {self.username}'

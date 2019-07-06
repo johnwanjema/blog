@@ -11,7 +11,9 @@ def register():
     form = RegistrationForm()
     if form.validate_on_submit():
         user = User(email=form.email.data,
-                    username=form.username.data, password=form.password.data)
+                    username=form.username.data, password=form.password.data,subscribe = form.subscribe.data)
+        if form.subscribe.data == 1:
+            flash('subscribed')
         db.session.add(user)
         db.session.commit()
 

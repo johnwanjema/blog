@@ -1,10 +1,10 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, TextAreaField, SubmitField, PasswordField
+from wtforms import StringField, TextAreaField, SubmitField, PasswordField,SelectField
 from wtforms.validators import Required
 from flask_wtf import FlaskForm
 from wtforms import StringField,PasswordField,BooleanField,SubmitField
 from wtforms import ValidationError
-from wtforms.validators import Required,Email,EqualTo
+from wtforms.validators import Required,Email,EqualTo,DataRequired
 from ..models import User
 
 class RegistrationForm(FlaskForm):
@@ -12,6 +12,9 @@ class RegistrationForm(FlaskForm):
     username = StringField('Enter your username',validators = [Required()])
     password = PasswordField('Password',validators = [Required(), EqualTo('password_confirm',message = 'Passwords must match')])
     password_confirm = PasswordField('Confirm Passwords',validators = [Required()])
+    subscribe = SelectField(' Would like to an email alert when a new post is made ', coerce=int,
+            choices=[(0, 'Please Select an option...'), (1, 'Yes'),(2, 'No')],
+            validators=[DataRequired()])
     submit = SubmitField('Sign Up')
 
     def validate_email(self,data_field):
