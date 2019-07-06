@@ -2,6 +2,7 @@ from flask import render_template, request, redirect, url_for, abort, flash
 from . import main
 from ..email import mail_message
 from .. import db
+from ..requests import get_quotes
 from ..models import Blog, User, Comment
 from flask_login import login_user, logout_user, login_required, current_user
 from .forms import BlogForm, CommentForm
@@ -12,10 +13,12 @@ def index():
 
     blogs = Blog.query.all()
     print(blogs)
+    quotes = get_quotes()
+    print(quotes)
     if blogs is None:
         return redirect(url_for('main.new_blog'))
         flash("no blogs")
-    return render_template("index.html", blogs=blogs)
+    return render_template("index.html", blogs=blogs,quotes = quotes)
 
 
 @main.route('/new_blog', methods=['GET', 'POST'])
