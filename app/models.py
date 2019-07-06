@@ -50,6 +50,7 @@ class Blog(db.Model):
     blog_downvotes = db.Column(db.Integer)
     posted = db.Column(db.Time, default=datetime.utcnow())
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+    comment_id = db.relationship("Comments", backref="blogs", lazy="dynamic")
 
     def save_blog(self):
         db.session.add(self)
@@ -61,11 +62,25 @@ class Blog(db.Model):
         return blog
 
     @classmethod
-    def get_bloges(cls, id):
-        bloges = blog.query.filter_by(id=id).all()
-        return bloges
+    def get_blogs(cls, id):
+        blogs = blog.query.filter_by(id=id).all()
+        return blogs
+
+    
+
+
+class Comment(db.Model):
+    __tablename__ = 'comments'
+    id = db.Column(db. Integer, primary_key=True)
+    comment = db.Column(db.String(255))
+    posted = db.Column(db.DateTime, default=datetime.utcnow)
+    pitch_id = db.Column(db.Integer, db.ForeignKey("pitch.id"))
+
+    def save_comment(self):
+        db.session.add(self)
+        db.session.commit()
 
     @classmethod
-    def get_bloges_by_category(cls, blog_category):
-        bloges = blog.query.filter_by(blog_category=blog_category).all()
-        return bloges
+    def get_comments(self, id):
+        comments = Comment.query.filter_by(id=id).all()
+        return comments
