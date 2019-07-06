@@ -50,7 +50,7 @@ class Blog(db.Model):
     blog_downvotes = db.Column(db.Integer)
     posted = db.Column(db.Time, default=datetime.utcnow())
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
-    comment_id = db.relationship("Comments", backref="blogs", lazy="dynamic")
+    comment_id = db.relationship("Comment", backref="blogs", lazy="dynamic")
 
     def save_blog(self):
         db.session.add(self)
@@ -74,7 +74,7 @@ class Comment(db.Model):
     id = db.Column(db. Integer, primary_key=True)
     comment = db.Column(db.String(255))
     posted = db.Column(db.DateTime, default=datetime.utcnow)
-    pitch_id = db.Column(db.Integer, db.ForeignKey("pitch.id"))
+    blog_id = db.Column(db.Integer, db.ForeignKey("blogs.id"))
 
     def save_comment(self):
         db.session.add(self)
