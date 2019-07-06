@@ -8,10 +8,16 @@ from .forms import BlogForm
 
 @main.route('/')
 def index():
-    return render_template("index.html")
+
+    blogs = Blog.query.all()
+    print(blogs)
+    if blogs is None:
+        return redirect(url_for('main.new_blog'))
+    return render_template("index.html", blogs = blogs)
 
 
 @main.route('/new_blog', methods=['GET', 'POST'])
+@login_required
 def new_blog():
     form = BlogForm()
     if form.validate_on_submit():

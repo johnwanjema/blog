@@ -6,7 +6,62 @@
 {% endblock %}
 
 {% block content %}
-<div class="container"><p>wanjema</p></div>
+<div class="container">
+</div>
+<div class="container">
+    <h4>INTERVIEW PITCHES</h4>
+    <div class="row">
+        {%for blog in blogs%}
+        <div class="col-md-6">
+            <!-- Card Narrower -->
+            <div class="card card-cascade narrower">
+
+                <!-- Card image -->
+
+                <!-- Card content -->
+                <div class="card-body card-body-cascade">
+
+                    <!-- Label -->
+                    <h5 class="blue-text pb-2 pt-1"><i class="fas fa-quote-left"></i>{{blog.blog_title| capitalize}}
+                    </h5>
+                    <!-- Title -->
+                    <h4 class="font-weight-bold card-title">{{blog.blog| capitalize}}</h4>
+                    <!-- Text -->
+                    <p class="card-text">{{blog.pitch| capitalize}}</p>
+                    <!-- Button -->
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p> Downvotes {{blog.pitch_upvotes}} </p>
+                            <a class="btn btn-outline-primary waves-effect"><i class="fas fa-thumbs-down"></i></a>
+                        </div>
+                        <div class="col-md-4">
+                            <!-- Button -->
+                            <p>Upvotes {{blog.pitch_downvotes}} </p>
+                            <button class="btn btn-outline-primary waves-effect"><i
+                                    class="fas fa-thumbs-down"></i></a></button>
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Card footer -->
+                <div class="rounded-bottom mdb-color lighten-3 text-center pt-3">
+                    <ul class="list-unstyled list-inline font-small">
+                        <li class="list-inline-item pr-2 white-text"><i class="far fa-clock pr-1"></i>{{blog.posted}}
+                            <li class="list-inline-item pr-2"><a href=""
+                                class="white-text">
+                                <i class="far fa-comments pr-1"></i>Comments</a></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Card Narrower -->
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
 
 
 
