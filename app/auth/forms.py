@@ -16,7 +16,7 @@ class RegistrationForm(FlaskForm):
             choices=[(0, 'Please Select an option...'), (1, 'Yes'),(2, 'No')],
             validators = [Required()])
     role = SelectField(' Select Role ', coerce=int,
-            choices=[(0, 'Please Select a role...'), (1, 'User'),(2, 'Writer')],
+            choices=[(0, 'Please Select a role...'), (1, 'Writer'),(2, 'User')],
             validators = [Required()])
     submit = SubmitField('Sign Up')
 
