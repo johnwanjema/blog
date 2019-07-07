@@ -10,6 +10,9 @@
     {%for comment in comments%}
     <div class="alert alert-info" role="alert">
         {{comment.comment}}
+        {% if current_user.role_id == 1 %}
+        <a href="{{url_for('main.delete_comment',id= comment.id)}}"class="btn btn-info">delete Comment</a>
+        {%endif%}
     </div>
     {%endfor%}
     {{ wtf.quick_form(comment_form) }}

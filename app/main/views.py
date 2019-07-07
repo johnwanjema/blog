@@ -53,6 +53,15 @@ def new_comment(id):
         title = "pitches"
     return render_template('new_comment.html', comment_form=form, comments=comments)
 
+@main.route('/delete/new/<int:id>', methods=['GET','POST'])
+def delete_comment(id):
+    comment = Comment.query.filter_by(id=id).first()
+    if comment is not None:
+        comment.delete_comment()
+        return redirect (url_for('main.index'))
+
+    return render_template('index.html')
+
 
 @main.route('/user/<uname>')
 def profile(uname):
