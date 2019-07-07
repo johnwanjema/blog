@@ -11,11 +11,11 @@ def register():
     form = RegistrationForm()
     if form.validate_on_submit():
         user = User(email=form.email.data,
-                    username=form.username.data, password=form.password.data,subscribe = form.subscribe.data)
-        if form.subscribe.data == 1:
-            flash('subscribed')
+                    username=form.username.data, password=form.password.data,subscribe = form.subscribe.data ,role_id =form.role.data )
+        
         db.session.add(user)
         db.session.commit()
+    
 
         return redirect(url_for('auth.login'))
         title = "New Account"
