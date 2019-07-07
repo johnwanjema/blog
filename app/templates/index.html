@@ -38,6 +38,11 @@
                         <p>{{blog.blog| capitalize}}.</p>
                         <a href="{{url_for('main.new_comment',id=blog.id)}}" class="btn btn-blue"><i
                                 class="fas fa-clone left"></i> Comments</a>
+                        {% if current_user.role_id == 1 %}
+                        <a href="{{url_for('main.delete_blog',id= blog.id)}}" class="btn btn-blue"><i
+                                class="fas fa-clone left"></i> Delete Blog</a>
+                        {%endif%}
+
                     </div>
                 </div>
 

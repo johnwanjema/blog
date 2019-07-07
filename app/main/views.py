@@ -37,6 +37,15 @@ def new_blog():
         return redirect(url_for('main.index'))
     return render_template('new_blog.html', blog_form=form)
 
+@main.route('/delete/new/<int:id>', methods=['GET','POST'])
+def delete_blog(id):
+    blog = Blog.query.filter_by(id=id).first()
+    if blog is not None:
+        blog.delete_blog()
+        return redirect (url_for('main.index'))
+
+    return render_template('index.html')
+
 
 @main.route('/new_comment/<int:id>', methods=['GET', 'POST'])
 @login_required

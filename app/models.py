@@ -80,6 +80,10 @@ class Blog(db.Model):
         blogs = Blog.query.filter_by(id=id).all()
         return blogs
 
+    def delete_blog(self):
+        db.session.delete(self)
+        db.session.commit()
+
     
 
 
