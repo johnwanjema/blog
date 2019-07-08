@@ -2,22 +2,26 @@
 
 ## Description
 
- personal blog where you can  express your ideas and opinions.
+personal blog where you can express your ideas and opinions.
 
 ## Created by John Wanjema 6/6/2019
 
 ## BDD
 
-#### Link to deployed site
-
-....
+| Behaviour      | Input                     | Output                                                    |
+| -------------- | ------------------------- | --------------------------------------------------------- |
+| Registration   | email ,username ,password | Submit User creates an account and receives welcome email |
+| New_blog       | blog tittle and content   | blog displays in index                                                      |
+| Edit blog      | submit edit blog          | blog updated                                              |
+| Delete blog    | click delete              | Blog deleted                                              |
+| Delete Comment | click delete              | comment dleted                                            |
 
 ## Setup and installations
 
 #### Prerequisites
 
 1. [Python3.6](https://www.python.org/downloads/)
-   
+
 2. [virtualenv](https://virtualenv.pypa.io/en/stable/installation/)
 3. [Pip](https://pip.pypa.io/en/stable/installing/)
 
