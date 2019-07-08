@@ -37,6 +37,24 @@ def new_blog():
         return redirect(url_for('main.index'))
     return render_template('new_blog.html', blog_form=form)
 
+@main.route("/blog/update/<int:id>", methods=['GET', 'POST'])
+@login_required
+def update_blog(id):
+    blog = Blog.query.filter_by(id = id).first()
+    print(blog)
+    form = BlogForm()
+    if form.validate_on_submit():
+        blog = Blog(blog=form.blog.data, blog_title=form.blog_title.data, user_id = current_user.id,
+                    blog_upvotes=0, blog_downvotes=0)
+        db.session.commit()
+        flash('Your Blog has been updated!', 'success')
+        return redirect(url_for('main.index', blog_id=blog.id))
+    elif request.method == 'GET':
+        form.blog_title.data = blog.blog_title
+        form.blog.data = blog.blog
+    return render_template('new_blog.html',blog_form=form)
+
+
 @main.route('/delete/new/<int:id>', methods=['GET','POST'])
 def delete_blog(id):
     blog = Blog.query.filter_by(id=id).first()
@@ -111,6 +129,8 @@ def update_pic(uname):
         user.profile_pic_path = path
         db.session.commit()
     return redirect(url_for('main.profile',uname=uname))
+
+
 
 
 
